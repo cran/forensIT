@@ -18,7 +18,7 @@
 #' @export
 simMinimalEnsemble <- function(ped,QP,testID,freqs,numCores=1,seed=123457,bVerbose=TRUE,bJustGetNumber=FALSE,bdbg=FALSE, dep = TRUE){ #nolint
   if (dep == FALSE) {
-  initBN <- NULL}
+  initBN <- ped_fbnet <- NULL}
   lLangeGoradia <- list()
   numGeno<-c()
   markerNames <- unlist(lapply(ped$MARKERS,function(x){attr(x,'name')}))
@@ -96,7 +96,6 @@ simMinimalEnsemble <- function(ped,QP,testID,freqs,numCores=1,seed=123457,bVerbo
           pednew$MARKERS[[imarker]] <-moi
         }
         pednew$available <- sort(c(pednew$available,as.numeric(testID[inew])))
-        ped_fbnet <- convertPed(pednew)
         pbn  <- initBN(ped_fbnet)
         bnet <- fbnet::buildBN(pbn,QP=QP)
         bn1  <- fbnet::buildCPTs(bnet) 
@@ -117,7 +116,6 @@ simMinimalEnsemble <- function(ped,QP,testID,freqs,numCores=1,seed=123457,bVerbo
           pednew$MARKERS[[imarker]] <-moi
         }
         pednew$available <- sort(c(pednew$available,as.numeric(testID[inew])))
-        ped_fbnet <- convertPed(pednew)
         pbn  <- initBN(ped_fbnet)
         bnet <- fbnet::buildBN(pbn,QP=QP)
         bn1  <- fbnet::buildCPTs(bnet) 

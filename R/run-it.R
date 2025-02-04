@@ -17,7 +17,7 @@
 #' @import iterators
 #' @return runIT
 runIT <-function(lped=NULL,freqs,QP,dbg,numCores,bOnlyIT=FALSE,lprobg_ped=NULL,bsigma=FALSE,blog=FALSE, dep = TRUE){
-  irun <-  NULL
+  irun <- ped_fbnet <- NULL
   if (dep == FALSE) {
   initBN <- function (){}}
   if(bOnlyIT && is.null(lped)) warning('bOnlyIT is TRUE but lprobG is NULL.')
@@ -27,7 +27,6 @@ runIT <-function(lped=NULL,freqs,QP,dbg,numCores,bOnlyIT=FALSE,lprobg_ped=NULL,b
     a <- foreach(irun=1:length(lped))%dopar%{ #nolint
       #sink("log.txt", append=TRUE)
       if(blog) cat(paste("Starting irun",irun,"\n"),file='log.txt',append=TRUE)
-      ped_fbnet <- convertPed(lped[[irun]])
       pbn  <- initBN(ped_fbnet)
       bnet <- fbnet::buildBN(pbn,QP=QP)
       bn1  <- fbnet::buildCPTs(bnet) 

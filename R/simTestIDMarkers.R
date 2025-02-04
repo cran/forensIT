@@ -4,6 +4,7 @@
 #' @param testID test ID
 #' @param numSim number of simulations
 #' @param seed seed
+#' @import pedtools
 #' @return list of simulations
 #' @export
 #' @examples
